@@ -1,0 +1,1 @@
+cmd_/home/bturcott/Documents/lkms/ebbchar/ebbchar.ko := /home/bturcott/Kernels/gcc-linaro-arm-linux-gnueabihf-4.7/bin/arm-linux-gnueabihf-ld -EL -r  -T ./scripts/module-common.lds --build-id  -o /home/bturcott/Documents/lkms/ebbchar/ebbchar.ko /home/bturcott/Documents/lkms/ebbchar/ebbchar.o /home/bturcott/Documents/lkms/ebbchar/ebbchar.mod.o

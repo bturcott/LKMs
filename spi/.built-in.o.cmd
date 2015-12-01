@@ -1,0 +1,1 @@
+cmd_/home/bturcott/Documents/lkms/spi/built-in.o :=  rm -f /home/bturcott/Documents/lkms/spi/built-in.o; /home/bturcott/Kernels/gcc-linaro-arm-linux-gnueabihf-4.7/bin/arm-linux-gnueabihf-ar rcsD /home/bturcott/Documents/lkms/spi/built-in.o

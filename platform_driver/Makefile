@@ -13,5 +13,5 @@ help:
 	$(MAKE) -C $(KDIR) ARCH=arm M=$(CURDIR) help
 
 The Kbuild file:
-obj-m += platform_spi_device.o
-obj-m += platform_spi.o
+obj-m := platform_spi_device.o
+obj-m := platform_spi.o

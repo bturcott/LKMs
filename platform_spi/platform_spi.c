@@ -2,6 +2,7 @@
 #include <linux/platform_device.h> //Platform driver library
 #include <linux/miscdevice.h> //Misc driver library - auto assigns major number 10
 #include <linux/fs.h> //File system library 
+#include <linux/clk.h> //needed for clk
 #include <linux/uaccess.h>
 #include <linux/io.h>
 
@@ -14,10 +15,11 @@ static ssize_t spi_write(struct file *file, const char *buffer, size_t len, loff
 
 struct spi_dev{	
 	struct miscdevice miscdev;
+	struct clk *clk;
 	void __iomem *regs; //__iomem is used by sparse to find possible coding faults
 	u32 spi_value; //value to read/write into the avm
 };
-
+                                                                                                                                                 
 /* File operations are defined in this section*/
 /*------------------------------------------------------------------------------------*/
 static const struct file_operations spi_fops = {
@@ -28,22 +30,34 @@ static const struct file_operations spi_fops = {
 //Platform driver functions 
 /*---------------------------------------------------------------------------*/
 static int spi_probe(struct platform_device *pdev){
-	int ret_val = -EBUSY;
+	
 	struct spi_dev *dev;
 	struct resource *r = 0;
+	int ret = 0;
 	
 	pr_info("\n Probe function was called!");
 
     	// Get the memory resources for this LED device
-    	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
-    	if(r == NULL) {
-        	pr_err("IORESOURCE_MEM (register space) does not exist\n");
-       		goto bad_exit_return;
-   	}
+    	//r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+    	//if(r == NULL) {
+        //	pr_err("IORESOURCE_MEM (register space) does not exist\n");
+       	//	goto bad_exit_return;
+   	//}
 
-	dev = devm_kzalloc(&pdev->dev, sizeof(struct spi_dev), GFP_KERNEL);
+	dev = devm_kzalloc(&pdev->dev, sizeof(*dev), GFP_KERNEL);
+	if (dev = NULL)
+		return -ENOMEM;
 	
+	pr_info("\n Memory was allocated \n");
+	
+	dev->clk = devm_clk_get(&pdev->dev, NULL);
+	if (IS_ERR(dev->clk))
+		return PTR_ERR(dev->clk);
+	pr_info("\n Memory for clk was allocated \n");
+	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+	pr_info("\n Platform resources were obtained. \n");
 	dev->regs = devm_ioremap_resource(&pdev->dev, r);
+	pr_info("\n IORESOURCE was obtained and remapped");
     	if(IS_ERR(dev->regs))
         	goto bad_ioremap;
 	
@@ -51,9 +65,9 @@ static int spi_probe(struct platform_device *pdev){
 	dev->miscdev.name = "spi";
 	dev->miscdev.fops = &spi_fops;	
 	
-	ret_val = misc_register(&dev->miscdev);
-	if(ret_val !=0) {
-		pr_info("Couldn't register misc device");
+	ret = misc_register(&dev->miscdev);
+	if(ret !=0) {
+		pr_info("\n Couldn't register misc device");
 		goto bad_exit_return;
 	}
 	
@@ -63,11 +77,11 @@ static int spi_probe(struct platform_device *pdev){
 	return 0;
 
 bad_ioremap:
-	ret_val = PTR_ERR(dev->regs);
+	ret = PTR_ERR(dev->regs);
 
 bad_exit_return:
 	pr_err("spi_probe bad exit\n");
-	return ret_val;
+	return ret;
 }
 
 static int spi_remove(struct platform_device *pdev){

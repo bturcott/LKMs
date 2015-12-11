@@ -1,5 +1,4 @@
 #include <linux/module.h>
-#include <linux/kernel.h>
 #include <linux/platform_device.h> //Platform driver library
 
 #define DRIVER_NAME "fpga_spi"
@@ -35,14 +34,15 @@ static struct platform_device spi_device = {
 
 //Basic functions for insmod and rmmod userspace calls
 static int __init spi_init(void){
-	printk(KERN_ALERT "\n Welcome to the spi platform device...\n");
+	pr_info("\n Welcome to the spi platform device...\n");
 	platform_device_register(&spi_device);
 	return 0;
 }
 
 static int __exit spi_exit(void){
-	printk(KERN_ALERT "\n Unloading spi platform device...\n");
+	pr_info("\n Unloading spi platform device...\n");
 	platform_device_unregister(&spi_device);
+	return 0;
 }
 
 //Mandatory function calls - must be included in every KLM

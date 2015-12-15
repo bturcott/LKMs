@@ -1,0 +1,2 @@
+kernel//home/bturcott/Documents/lkms/fpga_spi/fpga_spi.ko
+kernel//home/bturcott/Documents/lkms/fpga_spi/device.ko

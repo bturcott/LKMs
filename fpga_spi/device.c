@@ -1,4 +1,5 @@
 #include <linux/module.h>
+#include <linux/init.h>
 #include <linux/platform_device.h> //Platform driver library
 
 #define DRIVER_NAME "fpga_spi"

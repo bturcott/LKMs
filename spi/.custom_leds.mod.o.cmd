@@ -1,8 +1,9 @@
-cmd_/home/bturcott/Documents/lkms/fpga_spi/device.o := ~/Kernels/gcc-linaro-arm-linux-gnueabihf-4.7/bin/arm-linux-gnueabihf-gcc -Wp,-MD,/home/bturcott/Documents/lkms/fpga_spi/.device.o.d  -nostdinc -isystem /home/bturcott/Kernels/gcc-linaro-arm-linux-gnueabihf-4.7/bin/../lib/gcc/arm-linux-gnueabihf/4.7.3/include -I./arch/arm/include -Iarch/arm/include/generated/uapi -Iarch/arm/include/generated  -Iinclude -I./arch/arm/include/uapi -Iarch/arm/include/generated/uapi -I./include/uapi -Iinclude/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -mabi=aapcs-linux -mno-thumb-interwork -mfpu=vfp -funwind-tables -marm -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -DCC_HAVE_ASM_GOTO  -DMODULE  -D"KBUILD_STR(s)=\#s" -D"KBUILD_BASENAME=KBUILD_STR(device)"  -D"KBUILD_MODNAME=KBUILD_STR(device)" -c -o /home/bturcott/Documents/lkms/fpga_spi/device.o /home/bturcott/Documents/lkms/fpga_spi/device.c
+cmd_/home/bturcott/Documents/lkms/spi/custom_leds.mod.o := ~/Kernels/gcc-linaro-arm-linux-gnueabihf-4.7/bin/arm-linux-gnueabihf-gcc -Wp,-MD,/home/bturcott/Documents/lkms/spi/.custom_leds.mod.o.d  -nostdinc -isystem /home/bturcott/Kernels/gcc-linaro-arm-linux-gnueabihf-4.7/bin/../lib/gcc/arm-linux-gnueabihf/4.7.3/include -I./arch/arm/include -Iarch/arm/include/generated/uapi -Iarch/arm/include/generated  -Iinclude -I./arch/arm/include/uapi -Iarch/arm/include/generated/uapi -I./include/uapi -Iinclude/generated/uapi -include ./include/linux/kconfig.h -D__KERNEL__ -mlittle-endian -Wall -Wundef -Wstrict-prototypes -Wno-trigraphs -fno-strict-aliasing -fno-common -Werror-implicit-function-declaration -Wno-format-security -std=gnu89 -fno-dwarf2-cfi-asm -fno-omit-frame-pointer -mapcs -mno-sched-prolog -mabi=aapcs-linux -mno-thumb-interwork -mfpu=vfp -funwind-tables -marm -D__LINUX_ARM_ARCH__=7 -march=armv7-a -msoft-float -Uarm -fno-delete-null-pointer-checks -O2 --param=allow-store-data-races=0 -Wframe-larger-than=1024 -fno-stack-protector -Wno-unused-but-set-variable -fno-omit-frame-pointer -fno-optimize-sibling-calls -fno-var-tracking-assignments -g -pg -Wdeclaration-after-statement -Wno-pointer-sign -fno-strict-overflow -fconserve-stack -Werror=implicit-int -Werror=strict-prototypes -DCC_HAVE_ASM_GOTO  -D"KBUILD_STR(s)=\#s" -D"KBUILD_BASENAME=KBUILD_STR(custom_leds.mod)"  -D"KBUILD_MODNAME=KBUILD_STR(custom_leds)" -DMODULE  -c -o /home/bturcott/Documents/lkms/spi/custom_leds.mod.o /home/bturcott/Documents/lkms/spi/custom_leds.mod.c
 
-source_/home/bturcott/Documents/lkms/fpga_spi/device.o := /home/bturcott/Documents/lkms/fpga_spi/device.c
+source_/home/bturcott/Documents/lkms/spi/custom_leds.mod.o := /home/bturcott/Documents/lkms/spi/custom_leds.mod.c
 
-deps_/home/bturcott/Documents/lkms/fpga_spi/device.o := \
+deps_/home/bturcott/Documents/lkms/spi/custom_leds.mod.o := \
+    $(wildcard include/config/module/unload.h) \
   include/linux/module.h \
     $(wildcard include/config/sysfs.h) \
     $(wildcard include/config/modules.h) \
@@ -16,7 +17,6 @@ deps_/home/bturcott/Documents/lkms/fpga_spi/device.o := \
     $(wildcard include/config/event/tracing.h) \
     $(wildcard include/config/ftrace/mcount/record.h) \
     $(wildcard include/config/livepatch.h) \
-    $(wildcard include/config/module/unload.h) \
     $(wildcard include/config/constructors.h) \
     $(wildcard include/config/debug/set/module/ronx.h) \
   include/linux/list.h \
@@ -427,35 +427,9 @@ deps_/home/bturcott/Documents/lkms/fpga_spi/device.o := \
     $(wildcard include/config/have/mod/arch/specific.h) \
     $(wildcard include/config/modules/use/elf/rel.h) \
     $(wildcard include/config/modules/use/elf/rela.h) \
-  include/linux/platform_device.h \
-    $(wildcard include/config/suspend.h) \
-    $(wildcard include/config/hibernate/callbacks.h) \
-  include/linux/device.h \
-    $(wildcard include/config/debug/devres.h) \
-    $(wildcard include/config/acpi.h) \
-    $(wildcard include/config/pinctrl.h) \
-    $(wildcard include/config/dma/cma.h) \
-    $(wildcard include/config/devtmpfs.h) \
-    $(wildcard include/config/sysfs/deprecated.h) \
-  include/linux/ioport.h \
-  include/linux/klist.h \
-  include/linux/pinctrl/devinfo.h \
-    $(wildcard include/config/pm.h) \
-  include/linux/pm.h \
-    $(wildcard include/config/vt/console/sleep.h) \
-    $(wildcard include/config/pm/clk.h) \
-    $(wildcard include/config/pm/generic/domains.h) \
-  include/linux/ratelimit.h \
-  arch/arm/include/asm/device.h \
-    $(wildcard include/config/dmabounce.h) \
-    $(wildcard include/config/iommu/api.h) \
-    $(wildcard include/config/arm/dma/use/iommu.h) \
-    $(wildcard include/config/arch/omap.h) \
-  include/linux/pm_wakeup.h \
-  include/linux/mod_devicetable.h \
-  include/linux/uuid.h \
-  include/uapi/linux/uuid.h \
+  include/linux/vermagic.h \
+  include/generated/utsrelease.h \
 
-/home/bturcott/Documents/lkms/fpga_spi/device.o: $(deps_/home/bturcott/Documents/lkms/fpga_spi/device.o)
+/home/bturcott/Documents/lkms/spi/custom_leds.mod.o: $(deps_/home/bturcott/Documents/lkms/spi/custom_leds.mod.o)
 
-$(deps_/home/bturcott/Documents/lkms/fpga_spi/device.o):
+$(deps_/home/bturcott/Documents/lkms/spi/custom_leds.mod.o):

@@ -14,4 +14,4 @@ help:
 
 The Kbuild file:
 obj-m += fpga_spi.o
-obj-m += device.o
+#obj-m += device.o

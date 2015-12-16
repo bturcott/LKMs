@@ -19,5 +19,6 @@ __used
 __attribute__((section(".modinfo"))) =
 "depends=";
 
+MODULE_ALIAS("of:N*T*Caltr,fpga_spi*");
 
-MODULE_INFO(srcversion, "31CD3C5715E18A800C96798");
+MODULE_INFO(srcversion, "2738231F721822DFA7B531B");

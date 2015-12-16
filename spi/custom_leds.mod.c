@@ -19,5 +19,6 @@ __used
 __attribute__((section(".modinfo"))) =
 "depends=";
 
+MODULE_ALIAS("of:N*T*Cdev,custom-leds*");
 
-MODULE_INFO(srcversion, "ED5DD2CB4D31F3DF8478A10");
+MODULE_INFO(srcversion, "C0F49267AD86642821EDBAB");

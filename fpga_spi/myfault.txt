@@ -1,0 +1,37 @@
+[  656.027858] <fpga_spi> file: read()                                          
+[  656.031348] Unable to handle kernel NULL pointer dereference at virtual addr8
+[  656.039443] pgd = eeeb8000                                                   
+[  656.042142] [00000028] *pgd=2e7dd831, *pte=00000000, *ppte=00000000          
+[  656.048442] Internal error: Oops: 17 [#1] SMP ARM                            
+[  656.053126] Modules linked in: fpga_spi(O)                                   
+[  656.057232] CPU: 1 PID: 1110 Comm: cat Tainted: G           O    4.0.0.Apple5
+[  656.064592] Hardware name: Altera SOCFPGA                                    
+[  656.068584] task: eedb6140 ti: eed14000 task.ti: eed14000                    
+[  656.073968] PC is at __copy_to_user_std+0xac/0x3a8                           
+[  656.078742] LR is at spi_read+0x6c/0x94 [fpga_spi]                           
+[  656.083512] pc : [<c02b992c>]    lr : [<bf00012c>]    psr: 00070013          
+[  656.083512] sp : eed15ef4  ip : 0000001c  fp : eed15f2c                      
+[  656.094935] r10: be8e3bb8  r9 : eed14000  r8 : 00001000                      
+[  656.100136] r7 : eed15f78  r6 : 00001000  r5 : 00000000  r4 : be8e3bb8       
+[  656.106632] r3 : 00000000  r2 : ffffffe4  r1 : 00000028  r0 : be8e3bb8       
+[  656.113130] Flags: nzcv  IRQs on  FIQs on  Mode SVC_32  ISA ARM  Segment user
+[  656.120232] Control: 10c5387d  Table: 2eeb804a  DAC: 00000015                
+[  656.125951] Process cat (pid: 1110, stack limit = 0xeed14218)                
+[  656.131669] Stack: (0xeed15ef4 to 0xeed16000)                                
+[  656.136008] 5ee0:                                              00000000 00008
+[  656.144149] 5f00: 00001000 be8e3bb8 00000004 00000000 be8e3bb8 bf00012c bf008
+[  656.152290] 5f20: eed15f44 eed15f30 c0110bf0 bf0000cc eed15f78 ee6a49c0 eed18
+[  656.160430] 5f40: c0110cb0 c0110bd4 c012c1b0 c012c120 00000000 00000000 ee6a0
+[  656.168571] 5f60: 00001000 be8e3bb8 eed15fa4 eed15f78 c0110d80 c0110c30 00000
+[  656.176712] 5f80: 000bcc0c 00001000 be8e3bb8 00000003 c000eee4 00000000 00008
+[  656.184853] 5fa0: c000ed40 c0110d40 000bcc0c 00001000 00000003 be8e3bb8 00000
+[  656.192993] 5fc0: 000bcc0c 00001000 be8e3bb8 00000003 00000000 00000000 00001
+[  656.201133] 5fe0: 00000000 be8e3b94 0000e60b b6ec758c 60070010 00000003 fb71f
+[  656.209285] [<c02b992c>] (__copy_to_user_std) from [<bf00012c>] (spi_read+0x)
+[  656.217958] [<bf00012c>] (spi_read [fpga_spi]) from [<c0110bf0>] (__vfs_read)
+[  656.225931] [<c0110bf0>] (__vfs_read) from [<c0110cb0>] (vfs_read+0x8c/0x110)
+[  656.233038] [<c0110cb0>] (vfs_read) from [<c0110d80>] (SyS_read+0x4c/0x98)   
+[  656.239891] [<c0110d80>] (SyS_read) from [<c000ed40>] (ret_fast_syscall+0x0/)
+[  656.247344] Code: e4915004 e4916004 e4917004 e4918004 (e491e004)             
+[  656.253446] ---[ end trace 14a41d01d228e448 ]---                             
+Segmentation fault 

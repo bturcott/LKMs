@@ -7,7 +7,6 @@
 
 #define DRIVER_NAME "fpga_spi"
 #define CLASS_NAME "spi"
-#define MEM_LENGHT 32
 
 struct fpga_spi 
 {
@@ -22,17 +21,18 @@ static ssize_t spi_read(struct file *file, char *buffer, size_t len, loff_t *off
 	struct fpga_spi *spi = container_of(file->private_data, struct fpga_spi, miscdev);
 	int	missing = 0;
 	
+	pr_info("%s file: read()\n", DRIVER_NAME);
+	pr_info("Buffer is: %d\n", sizeof(buffer));
+	pr_info("Spi value is: %p\n",spi->mmio_base);
+	pr_info("Size of is: %d\n", sizeof(spi->spi_value));
 	
-	pr_info("<%s> file: read()\n", DRIVER_NAME);
-	
-	missing = copy_to_user(buffer, &spi->spi_value, sizeof(spi->spi_value));
+	//missing = copy_to_user(buffer, &spi->spi_value, sizeof(spi->spi_value));
 	
 	if(missing != 0) {
         	pr_info("Failed to return current led value to userspace\n");
         	return -EFAULT; // Bad address error value. It's likely that "buffer" doesn't point to a good address
     	}
-	
-	pr_info("<%s> file: read()\n", DRIVER_NAME);
+
 	return 0;
 }
 
@@ -41,13 +41,18 @@ static ssize_t spi_read(struct file *file, char *buffer, size_t len, loff_t *off
 static ssize_t spi_write(struct file *file, const char __user *buffer, size_t len, loff_t *offset)
 {
 	struct fpga_spi *spi = container_of(file->private_data, struct fpga_spi, miscdev);
-	int	missing;
+	//struct fpga_spi *spi;
+	//int	missing;
+	//spi = file->private_data;
+	//spi->spi_value = devm_kmalloc(32, GFP_KERNEL); 
 	
-	pr_info("<%s> file: write()\n", DRIVER_NAME);
+	pr_info("%s file: write()\n", DRIVER_NAME);
+	pr_info("Buffer is: %d\n", sizeof(buffer));
+	pr_info("Spi value is: %p\n",&spi->spi_value);
+	pr_info("Size of is: %d\n", sizeof(spi->spi_value));
+	//missing = copy_from_user(&spi->spi_value, buffer, sizeof(spi->spi_value));
 	
-	missing = copy_from_user(&spi->spi_value, buffer, sizeof(spi->spi_value));
-	
-	pr_info("Copy from user complete.\n");
+	//pr_info("Copy from user complete.\n");
 	//iowrite32(spi->spi_value, spi->mmio_base);
 	//pr_info("iowrite32 complete.\n");
 	return len;
@@ -68,12 +73,18 @@ static int spi_probe(struct platform_device *pdev)
 	int ret = -EBUSY;
 
 	pr_info("Probe function has been called ");
+	
 	//Allocates memory for spi device
 	spi = devm_kzalloc(&pdev->dev, sizeof(*spi), GFP_KERNEL);
 	if (spi == NULL)
 		return -ENOMEM;
 	
+	/*Platform_get_resource gets information from the device resource 
+	 *either device tree or device module. Includes start/end address etc. 
+	 *returns a pointer to struct resource*/
 	r = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+	
+	/* */
 	spi->mmio_base = devm_ioremap_resource(&pdev->dev, r);
 	if (IS_ERR(spi->mmio_base))
 		return PTR_ERR(spi->mmio_base);
@@ -88,37 +99,19 @@ static int spi_probe(struct platform_device *pdev)
 		pr_info("Unable to register misc device.\n");
 	}
 
-	platform_set_drvdata(pdev, (void*)spi);
+	platform_set_drvdata(pdev, spi);
 	
-	pr_info("<%s> has been registered correctly.\n", DRIVER_NAME);
-	/*
-	//Dynamically allocate a major number
-	majorNumber = register_chrdev(0, DRIVER_NAME, &fops);
-	if (majorNumber<0){
-		pr_err("\n fpga_spi failed to register a major number \n");
-	}
-	pr_info("fpga_spi: registered correctly with major number %d\n", majorNumber);
-	
-	fpga_spi_class = class_create(THIS_MODULE, CLASS_NAME);
-	if (IS_ERR(fpga_spi_class)){
-		unregister_chrdev(majorNumber, DRIVER_NAME);
-		pr_err("Failed to register device class\n");
-		return PTR_ERR(fpga_spi_class);
-	}
-	
-	pr_info("fpga_spi: device class registered correctly\n");
-	
-	spi->dev = device_create(fpga_spi_class, NULL, MKDEV(majorNumber, 0), NULL, DRIVER_NAME);
-	*/
+	pr_info("%s has been registered correctly.\n", DRIVER_NAME);
+
 	return 0;
 }
 
 static int spi_remove(struct platform_device *pdev)
 {
-	struct fpga_spi *hw;
+	struct fpga_spi *spi;
 	pr_info("\n Remove function has been called");
-	hw = platform_get_drvdata(pdev);
-	if (hw == NULL)
+	spi = platform_get_drvdata(pdev);
+	if (spi == NULL)
 		return -ENODEV;
 		
 	return 0;

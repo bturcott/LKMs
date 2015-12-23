@@ -21,4 +21,4 @@ __attribute__((section(".modinfo"))) =
 
 MODULE_ALIAS("of:N*T*Caltr,fpga_spi*");
 
-MODULE_INFO(srcversion, "CFF671D1C14D2661E97BDE6");
+MODULE_INFO(srcversion, "C08F8CC4E52B970E0AB6715");
